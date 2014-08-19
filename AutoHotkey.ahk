@@ -32,6 +32,7 @@ ShellEvent(wParam, lParam) {
         WinGetTitle, win_title, ahk_id %lParam%
         WinGetClass, win_class, ahk_id %lParam%
 
+        ; POPO个人消息
         if (win_class = "SessionForm")
         {
             ; MsgBox, %win_title%, %win_class%
@@ -39,9 +40,11 @@ ShellEvent(wParam, lParam) {
             return
         }
 
+        ; POPO兴趣组消息
         if (win_class = "TeamForm")
         {
-            for i, element in team_white_list 
+            ; 仅通知team_white_list白名单里的兴趣组
+            for i, element in team_white_list
             {
                 ; MsgBox, %win_title%, %win_class%, %element%
                 if (element = win_title)
@@ -51,5 +54,8 @@ ShellEvent(wParam, lParam) {
                 }
             }
         }
+
+        ; 其他消息
+        Notify(win_title)
     }
 }
