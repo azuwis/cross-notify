@@ -8,7 +8,7 @@
 
 ==== 服务端
 
-获得``notify-send``命令：
+获得++notify-send++命令：
 
 ----
 apt-get install libnotify-bin
@@ -22,15 +22,15 @@ apt-get install libnotify-bin
 
 ==== 客户端
 
-下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到``AutoHotkey.exe``，放到当前目录。
+下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到++AutoHotkey.exe++，放到当前目录。
 
-编辑``AutoHotkey.txt``，修改``10.0.2.2``为服务端IP：
+编辑++AutoHotkey.txt++，修改++10.0.2.2++为服务端IP：
 
 ----
 URL := "http://10.0.2.2:45678/?"
 ----
 
-根据需要修改``ShellEvent``函数。
+根据需要修改++ShellEvent++函数。
 
 运行：
 
@@ -41,7 +41,7 @@ client.bat
 === Tips
 
 - 仅能通知窗口标题。
-- 大部分程序窗口聚焦时，不会闪烁。阅读消息之后可以用``win+d``隐藏所有窗口，确保下次收到消息闪烁。
+- 大部分程序窗口聚焦时，不会闪烁。阅读消息之后可以用++win+d++隐藏所有窗口，确保下次收到消息闪烁。
 - 明文通信并且没有验证，注意安全问题。
 
 === 感谢
