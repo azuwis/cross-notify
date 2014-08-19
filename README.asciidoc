@@ -1,0 +1,51 @@
+== Cross Notify
+
+转移Windows闪烁窗口通知到远程机器。
+
+大部分Windows程序遇到特定的事件会闪烁窗口（如收到IM消息、下载完成等），用AutoHotkey截获闪烁事件，然后通过HTTP请求把窗口标题送到远程机器(Linux、Mac、宿主机)。
+
+=== 使用
+
+==== 服务端
+
+获得``notify-send``命令：
+
+----
+apt-get install libnotify-bin
+----
+
+执行：
+
+----
+./server.py
+----
+
+==== 客户端
+
+下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到``AutoHotkey.exe``，放到当前目录。
+
+编辑``AutoHotkey.txt``，修改``10.0.2.2``为服务端IP：
+
+----
+URL := "http://10.0.2.2:45678/?"
+----
+
+根据需要修改``ShellEvent``函数。
+
+运行：
+
+----
+client.bat
+----
+
+=== Tips
+
+- 仅能通知窗口标题。
+- 大部分程序窗口聚焦时，不会闪烁。阅读消息之后可以用``win+d``隐藏所有窗口，确保下次收到消息闪烁。
+- 明文通信并且没有验证，注意安全问题。
+
+=== 感谢
+
+- link:https://github.com/cedricporter[Cedric Porter]的link:https://github.com/cedricporter/popo-plugin[实现]。
+- AutoHotkey社区。
+- Lexikos的检测闪烁窗口link:http://www.autohotkey.com/board/topic/36510-detect-flashingblinking-window-on-taskbar/?p=229583[AutoHotkey脚本]。

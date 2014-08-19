@@ -1,0 +1,1 @@
+start AutoHotkey.exe AutoHotkey.txt
