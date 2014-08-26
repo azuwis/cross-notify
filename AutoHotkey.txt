@@ -24,7 +24,7 @@ Notify(message) {
 }
 
 ShellEvent(wParam, lParam) {
-    team_white_list := ["Foo - 兴趣组", "Bar - 兴趣组"]
+    team_white_list := ["Foo", "Bar"]
 
     if (wParam = 0x8006) ; HSHELL_FLASH
     {   ; lParam contains the ID of the window which flashed:
@@ -43,6 +43,9 @@ ShellEvent(wParam, lParam) {
         ; POPO兴趣组消息
         if (win_class = "TeamForm")
         {
+            ; 截取兴趣组名称
+            win_title := StrSplit(win_title, " - ")[1]
+
             ; 仅通知team_white_list白名单里的兴趣组
             for i, element in team_white_list
             {
