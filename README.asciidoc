@@ -8,11 +8,15 @@
 
 ==== 服务端
 
-获得++notify-send++命令：
+Linux需要++notify-send++命令：
 
 ----
 apt-get install libnotify-bin
 ----
+
+Mac OS X 10.7 及之前需要安装link:http://growl.info/[Growl]，及link:http://growl.info/downloads#generaldownloads[growlnotify命令行]。
+
+Mac OS X 10.8 及之后不需要安装别的依赖。
 
 执行：
 
