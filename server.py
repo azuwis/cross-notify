@@ -5,7 +5,7 @@ import urllib
 
 PORT_NUMBER = 45678
 
-class handler(BaseHTTPRequestHandler):
+class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.send_response(200)
@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
         return
 
 try:
-    server = HTTPServer(('', PORT_NUMBER), handler)
+    server = HTTPServer(('', PORT_NUMBER), Handler)
     print 'Started httpserver on port' , PORT_NUMBER
     server.serve_forever()
 
