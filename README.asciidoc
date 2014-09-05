@@ -6,7 +6,7 @@
 
 === 使用
 
-==== 服务端
+==== 服务端(接收消息端，Linux、Mac等)
 
 Linux需要++notify-send++命令：
 
@@ -24,7 +24,7 @@ Mac OS X 10.8 及之后不需要安装别的依赖。
 ./server.py
 ----
 
-==== 客户端
+==== 客户端(发送消息端，Windows)
 
 下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到++AutoHotkey.exe++，放到当前目录。
 
