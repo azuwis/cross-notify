@@ -4,6 +4,8 @@
 
 大部分Windows程序遇到特定的事件会闪烁窗口（如收到IM消息、下载完成等），用AutoHotkey截获闪烁事件，然后通过HTTP请求把窗口标题送到远程机器(Linux、Mac、宿主机)。
 
+image:screenshot.png[screenshot]
+
 === 使用
 
 ==== 服务端(接收消息端，Linux、Mac等)
