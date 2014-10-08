@@ -3,8 +3,12 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from subprocess import call
 import sys
 import urllib
+import ConfigParser
 
-PORT_NUMBER = 45678
+config = ConfigParser.RawConfigParser()
+config.read('setting.ini')
+
+PORT_NUMBER = config.getint('Default', 'Port')
 
 class Notify:
 

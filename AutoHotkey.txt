@@ -1,4 +1,4 @@
-URL := "http://10.0.2.2:45678/?"
+#SingleInstance force
 
 DetectHiddenWindows, On
 Script_Hwnd := WinExist("ahk_class AutoHotkey ahk_pid " DllCall("GetCurrentProcessId"))
@@ -7,6 +7,21 @@ DetectHiddenWindows, Off
 ; Register shell hook to detect flashing windows.
 DllCall("RegisterShellHookWindow", "uint", Script_Hwnd)
 OnMessage(DllCall("RegisterWindowMessage", "str", "SHELLHOOK"), "ShellEvent")
+
+; Settings
+IniRead, server, setting.ini, Default, Server, ""
+IniRead, port, setting.ini, Default, Port, 45678
+IniRead, popo_enable_team_white_list, setting.ini, POPO, EnableTeamWhiteList, "false"
+IniRead, popo_team_white_list, setting.ini, POPO, TeamWhiteList, ""
+IniRead, popo_team_separator, setting.ini, POPO, TeamSeparator, "|"
+popo_team_white_list := StrSplit(popo_team_white_list, popo_team_separator)
+
+if (server = "") {
+    MsgBox 请修改setting.ini，Default->Server为服务端IP
+    ExitApp
+}
+
+URL := "http://" . server . ":" . port . "/?"
 
 last_blink := A_TickCount
 
@@ -24,7 +39,8 @@ Notify(message) {
 }
 
 ShellEvent(wParam, lParam) {
-    team_white_list := ["Foo", "Bar"]
+    global popo_enable_team_white_list
+    global popo_team_white_list
 
     if (wParam = 0x8006) ; HSHELL_FLASH
     {   ; lParam contains the ID of the window which flashed:
@@ -35,8 +51,11 @@ ShellEvent(wParam, lParam) {
         ; POPO个人消息
         if (win_class = "SessionForm")
         {
+            ; 截取消息发送者名称
+            win_title := StrSplit(win_title, " - ")[1]
+
             ; MsgBox, %win_title%, %win_class%
-            Notify("个人：" . win_title)
+            Notify("POPO：" . win_title)
             return
         }
 
@@ -46,16 +65,23 @@ ShellEvent(wParam, lParam) {
             ; 截取兴趣组名称
             win_title := StrSplit(win_title, " - ")[1]
 
-            ; 仅通知team_white_list白名单里的兴趣组
-            for i, element in team_white_list
+            if (popo_enable_team_white_list = "true")
             {
-                ; MsgBox, %win_title%, %win_class%, %element%
-                if (element = win_title)
+                ; 仅通知team_white_list白名单里的兴趣组
+                for i, element in popo_team_white_list
                 {
-                    Notify("兴趣组：" . win_title)
-                    return
+                    ; MsgBox, %win_title%, %win_class%, %element%
+                    if (element = win_title)
+                    {
+                        Notify("POPO群：" . win_title)
+                        return
+                    }
                 }
+            } else {
+                Notify("POPO群：" . win_title)
+                return
             }
+            return
         }
 
         ; 其他消息

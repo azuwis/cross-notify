@@ -30,10 +30,21 @@ Mac OS X 10.8 及之后不需要安装别的依赖。
 
 下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到++AutoHotkey.exe++，放到当前目录。
 
-编辑++AutoHotkey.txt++，修改++10.0.2.2++为服务端IP：
+编辑++setting.ini++，修改++Default++=>++Server++为服务端IP：
 
 ----
-URL := "http://10.0.2.2:45678/?"
+[Default]
+Server=10.0.2.2
+Port=45678
+----
+
+针对网易POPO的设置，如只通知群为++foo++和++bar++的群消息:
+
+----
+[POPO]
+EnableTeamWhiteList=true
+TeamWhiteList=foo|bar
+TeamSeparator=|
 ----
 
 根据需要修改++ShellEvent++函数。
