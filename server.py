@@ -1,12 +1,13 @@
 #!/usr/bin/python
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from subprocess import call
+import os.path
 import sys
 import urllib
 import ConfigParser
 
 config = ConfigParser.RawConfigParser()
-config.read('setting.ini')
+config.read(os.path.join(os.path.dirname(__file__), 'setting.ini'))
 
 PORT_NUMBER = config.getint('Default', 'Port')
 
