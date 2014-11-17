@@ -11,6 +11,7 @@ OnMessage(DllCall("RegisterWindowMessage", "str", "SHELLHOOK"), "ShellEvent")
 ; Settings
 IniRead, server, setting.ini, Default, Server, ""
 IniRead, port, setting.ini, Default, Port, 45678
+IniRead, enable_winkey_hack, setting.ini, Default, EnableWinkeyHack, "false"
 IniRead, popo_enable_team_white_list, setting.ini, POPO, EnableTeamWhiteList, "false"
 IniRead, popo_team_white_list, setting.ini, POPO, TeamWhiteList, ""
 IniRead, popo_team_separator, setting.ini, POPO, TeamSeparator, "|"
@@ -88,3 +89,15 @@ ShellEvent(wParam, lParam) {
         Notify(win_title)
     }
 }
+
+; 按下 win 键聚焦到任务栏，松开聚焦回原来的窗口，配合 Linux 一些窗口管理器使用。
+; 在 Linux 上使用远程登录软件登录 Windows，并且用 win+? 组合键切换聚焦，聚焦离开
+; 登录软件时，Windows 只会收到 win 键按下的事件，而聚焦回到远程登录软件时，
+; Windows 只会收到 win 键松开的事件。
+#If enable_winkey_hack = "true"
+Lwin::
+WinActivate, ahk_class Shell_TrayWnd
+KeyWait, Lwin
+SendInput !{Esc}
+return
+#If
