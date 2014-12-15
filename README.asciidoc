@@ -26,9 +26,16 @@ Mac OS X 10.8 及之后不需要安装别的依赖。
 ./server.py
 ----
 
+服务端所需文件:
+
+----
+server.py
+setting.ini
+----
+
 ==== 客户端(发送消息端，Windows)
 
-下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到++AutoHotkey.exe++，放到当前目录。
+下载link:http://ahkscript.org/download/[AutoHotkey]，解压得到++AutoHotkey.exe++，放到当前目录（AutoHotkey.txt所在目录）。
 
 编辑++setting.ini++，修改++Default++=>++Server++为服务端IP：
 
@@ -53,6 +60,15 @@ TeamSeparator=|
 
 ----
 client.bat
+----
+
+客户端所需文件:
+
+----
+AutoHotkey.exe
+AutoHotkey.txt
+client.bat
+setting.ini
 ----
 
 === Tips
