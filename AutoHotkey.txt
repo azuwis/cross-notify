@@ -12,6 +12,12 @@ OnMessage(DllCall("RegisterWindowMessage", "str", "SHELLHOOK"), "ShellEvent")
 IniRead, server, setting.ini, Default, Server, ""
 IniRead, port, setting.ini, Default, Port, 45678
 IniRead, enable_winkey_hack, setting.ini, Default, EnableWinkeyHack, "false"
+
+IniRead, popo_enable_black_list, setting.ini, POPO, EnableBlackList, "false"
+IniRead, popo_black_list, setting.ini, POPO, BlackList, ""
+IniRead, popo_separator, setting.ini, POPO, Separator, "|"
+popo_black_list := StrSplit(popo_black_list, popo_separator)
+
 IniRead, popo_enable_team_white_list, setting.ini, POPO, EnableTeamWhiteList, "false"
 IniRead, popo_team_white_list, setting.ini, POPO, TeamWhiteList, ""
 IniRead, popo_team_separator, setting.ini, POPO, TeamSeparator, "|"
@@ -58,6 +64,19 @@ ShellEvent(wParam, lParam) {
             if (win_title = "多人会话")
             {
                 RegExMatch(win_title_array[2], ".*\((.*)\)", win_title)
+            }
+
+            if (popo_enable_black_list = "true")
+            {
+                ; 不通知popo_black_list黑名单的消息
+                for i, element in popo_black_list
+                {
+                    ; MsgBox, %win_title%, %win_class%, %element%
+                    if (element = win_title)
+                    {
+                        return
+                    }
+                }
             }
 
             ; MsgBox, %win_title%, %win_class%
