@@ -53,7 +53,12 @@ ShellEvent(wParam, lParam) {
         if (win_class = "SessionForm")
         {
             ; 截取消息发送者名称
-            win_title := StrSplit(win_title, " - ")[1]
+            win_title_array := StrSplit(win_title, " - ")
+            win_title := win_title_array[1]
+            if (win_title = "多人会话")
+            {
+                RegExMatch(win_title_array[2], ".*\((.*)\)", win_title)
+            }
 
             ; MsgBox, %win_title%, %win_class%
             Notify("POPO：" . win_title)
