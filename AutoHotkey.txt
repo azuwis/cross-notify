@@ -92,7 +92,7 @@ ShellEvent(wParam, lParam) {
 
             if (popo_enable_team_white_list = "true")
             {
-                ; 仅通知team_white_list白名单里的兴趣组
+                ; 仅通知popo_team_white_list白名单里的兴趣组
                 for i, element in popo_team_white_list
                 {
                     ; MsgBox, %win_title%, %win_class%, %element%
