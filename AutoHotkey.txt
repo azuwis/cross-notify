@@ -25,6 +25,11 @@ IniRead, popo_team_white_list, setting.ini, POPO, TeamWhiteList, ""
 IniRead, popo_team_separator, setting.ini, POPO, TeamSeparator, "|"
 popo_team_white_list := StrSplit(popo_team_white_list, popo_team_separator)
 
+IniRead, popo_enable_popo3_black_list, setting.ini, POPO, EnablePopo3BlackList, "true"
+IniRead, popo_popo3_black_list, setting.ini, POPO, Popo3BlackList, ""
+IniRead, popo_popo3_separator, setting.ini, POPO, Popo3Separator, "|"
+popo_popo3_black_list := StrSplit(popo_popo3_black_list, popo_popo3_separator)
+
 if (server = "") {
     MsgBox 请修改setting.ini，Default->Server为服务端IP
     ExitApp
@@ -52,6 +57,8 @@ ShellEvent(wParam, lParam) {
     global popo_black_list
     global popo_enable_team_white_list
     global popo_team_white_list
+    global popo_enable_popo3_black_list
+    global popo_popo3_black_list
 
     if (wParam = 0x8006) ; HSHELL_FLASH
     {   ; lParam contains the ID of the window which flashed:
@@ -110,6 +117,29 @@ ShellEvent(wParam, lParam) {
                 Notify("POPO群：" . win_title)
                 return
             }
+            return
+        }
+
+        ; POPO 3.0 消息
+        if (win_class = "UnifySessionForm")
+        {
+            if (popo_enable_popo3_black_list = "true")
+            {
+                ; 不通知 popo_popo3_black_list 黑名单的消息
+                ; POPO 3.0 出现通知和 win title 发生变化有延时
+                Sleep 500
+                WinGetTitle, win_title, ahk_id %lParam%
+                ; MsgBox, %win_title%, %win_class%, %element%
+                for i, element in popo_popo3_black_list
+                {
+                    if (element = win_title)
+                    {
+                        return
+                    }
+                }
+            }
+
+            Notify("POPO：" . win_title)
             return
         }
 
