@@ -48,6 +48,8 @@ Notify(message) {
 }
 
 ShellEvent(wParam, lParam) {
+    global popo_enable_black_list
+    global popo_black_list
     global popo_enable_team_white_list
     global popo_team_white_list
 
