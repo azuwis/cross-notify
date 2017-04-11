@@ -1,5 +1,7 @@
 #SingleInstance force
 
+ComObjError(false)
+
 DetectHiddenWindows, On
 Script_Hwnd := WinExist("ahk_class AutoHotkey ahk_pid " DllCall("GetCurrentProcessId"))
 DetectHiddenWindows, Off
