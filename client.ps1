@@ -22,7 +22,7 @@ if (-not (Test-Path $lnk)) {
     $shortcut = $wscript.CreateShortcut($lnk)
     $shortcut.TargetPath="$exe"
     $shortcut.Arguments="AutoHotkey.txt"
-    $shortcut.WorkingDirectory = "$dir";
+    $shortcut.WorkingDirectory = "$dir"
     $shortcut.Save()
 }
 
