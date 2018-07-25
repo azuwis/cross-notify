@@ -1,6 +1,6 @@
 $url = "https://autohotkey.com/download/ahk.zip"
 $dir = "$PSScriptRoot"
-$zip = "$dir\ahk.zip"
+$zip = "$Home\Downloads\ahk.zip"
 $exe = "$dir\AutoHotkeyU64.exe"
 $pattern = "\AutoHotkeyU64.exe"
 $lnk = "$dir\client.lnk"
