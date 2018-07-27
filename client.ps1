@@ -4,16 +4,17 @@ $zip = "$Home\Downloads\ahk.zip"
 $exe = "$dir\AutoHotkeyU64.exe"
 $pattern = "\AutoHotkeyU64.exe"
 $lnk = "$dir\client.lnk"
-$startup = [environment]::getfolderpath("Startup") + "\cross-notify.lnk"
+$startup = [Environment]::GetFolderPath("Startup") + "\cross-notify.lnk"
+$desktop = [Environment]::GetFolderPath("Desktop") + "\Cross Notify.lnk"
 
 if (-not (Test-Path "$exe")) {
     if (-not (Test-Path $zip)) {
         Import-Module BitsTransfer
-        Start-BitsTransfer -Source $url -Destination $zip
+        Start-BitsTransfer -Description "Downloading $url" -Source $url -Destination $zip
     }
-    $shell = new-object -com shell.application
+    $shell = New-Object -com Shell.Application
     $shell.NameSpace($zip).Items() | ? { $_.Path.EndsWith($pattern) } | % {
-        $shell.NameSpace($dir).copyhere($_)
+        $shell.NameSpace($dir).CopyHere($_)
     }
 }
 
@@ -28,6 +29,10 @@ if (-not (Test-Path $lnk)) {
 
 if (-not (Test-Path $startup)) {
     Copy-Item $lnk $startup
+}
+
+if (-not (Test-Path $desktop)) {
+    Copy-Item $lnk $desktop
 }
 
 Invoke-Item -Path $lnk
