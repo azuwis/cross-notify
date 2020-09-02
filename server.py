@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from subprocess import call
 import os.path
